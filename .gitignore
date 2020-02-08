@@ -3,9 +3,6 @@
 .project
 .settings
 bin/
-test/.classpath
-test/.project
-test/.settings
 
 # Intellij project files
 *.iml
@@ -22,3 +19,6 @@ target/
 
 # Allure
 allure-results/
+
+#Drivers
+src/main/resources/driver/

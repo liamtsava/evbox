@@ -1,0 +1,33 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Evbox UI Functional suite" verbose="1">
+
+    <listeners>
+        <listener class-name="com.evbox.listener.TestListener"/>
+        <listener class-name="com.evbox.listener.SuiteListener"/>
+    </listeners>
+
+    <test name="QA environment smoke suite">
+        <groups>
+            <run>
+                <include name="smoke"/>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.evbox.test"/>
+        </packages>
+    </test>
+
+    <test name="QA environment regression suite">
+        <groups>
+            <run>
+                <include name="regression"/>
+                <exclude name="smoke"></exclude>
+            </run>
+        </groups>
+        <packages>
+            <package name="com.evbox.test"/>
+        </packages>
+    </test>
+
+</suite>
