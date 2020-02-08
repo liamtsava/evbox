@@ -1,0 +1,24 @@
+# Eclipse project files
+.classpath
+.project
+.settings
+bin/
+test/.classpath
+test/.project
+test/.settings
+
+# Intellij project files
+*.iml
+*.ipr
+*.iws
+/.idea/
+.clover
+
+# Mac
+.DS_Store
+
+# Maven
+target/
+
+# Allure
+allure-results/
