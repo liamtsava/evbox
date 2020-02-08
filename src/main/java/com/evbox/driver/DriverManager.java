@@ -36,6 +36,13 @@ public class DriverManager {
         return localInstance;
     }
 
+    public static DriverManager getInstance() {
+        if (instance == null) {
+            throw new RuntimeException("DriverManger need to be initialized with required browser type first.");
+        }
+        return instance;
+    }
+
     private DriverManager(BrowserType browserType) {
         this.browserType = browserType;
     }

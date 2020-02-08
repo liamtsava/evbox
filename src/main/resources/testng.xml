@@ -7,7 +7,7 @@
         <listener class-name="com.evbox.listener.SuiteListener"/>
     </listeners>
 
-    <test name="QA environment smoke suite">
+    <test name="Local environment smoke suite">
         <groups>
             <run>
                 <include name="smoke"/>
@@ -18,7 +18,7 @@
         </packages>
     </test>
 
-    <test name="QA environment regression suite">
+    <test name="Local environment regression suite">
         <groups>
             <run>
                 <include name="regression"/>
