@@ -1,21 +1,27 @@
 package com.evbox.ui.element;
 
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.FindBy;
 
 import com.evbox.driver.DriverManager;
-import com.evbox.driver.js.ScrollTo;
+import com.evbox.driver.js.PostForm;
+import com.evbox.driver.js.SendCaptchaToken;
+import com.evbox.driver.util.WaitUtil;
+import com.evbox.logger.Logger;
+import com.evbox.service.RucaptchaService;
+import com.evbox.ui.page.SuccessHelpRequestPage;
 
 import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 import ru.yandex.qatools.htmlelements.element.HtmlElement;
 import ru.yandex.qatools.htmlelements.element.Select;
 import ru.yandex.qatools.htmlelements.element.TextInput;
-import ru.yandex.qatools.htmlelements.element.TypifiedElement;
 
 @Name("Form for requesting help on support page")
 @FindBy(xpath = "//form")
 public class RequestHelpForm extends HtmlElement {
+
+    private static final Logger LOGGER = new Logger(RequestHelpForm.class);
 
     @Name("'First name' input field")
     @FindBy(xpath = "//input[contains(@id,'firstname')]")
@@ -50,66 +56,57 @@ public class RequestHelpForm extends HtmlElement {
     private Button send;
 
     public void fillFirstName(String text) {
-        scrollIfNeedAndApply(firstName);
-        //        firstName.sendKeys(text);
-        sendText(firstName, text);
+        LOGGER.info("Fill first name:" + text);
+        firstName.sendKeys(text);
     }
 
     public void fillLastName(String text) {
-        scrollIfNeedAndApply(lastName);
-        //        lastName.sendKeys(text);
-        sendText(lastName, text);
+        LOGGER.info("Fill last name:" + text);
+        lastName.sendKeys(text);
     }
 
     public void fillEmail(String text) {
-        scrollIfNeedAndApply(email);
-        //        email.sendKeys(text);
-        sendText(email, text);
+        LOGGER.info("Fill email:" + text);
+        email.sendKeys(text);
     }
 
     public void fillPostalCode(String text) {
-        scrollIfNeedAndApply(postalCode);
-        //        postalCode.sendKeys(text);
-        sendText(postalCode, text);
+        LOGGER.info("Fill postal code:" + text);
+        postalCode.sendKeys(text);
     }
 
     public void fillCity(String text) {
-        scrollIfNeedAndApply(city);
-        //        city.sendKeys(text);
-        sendText(city, text);
+        LOGGER.info("Fill city:" + text);
+        city.sendKeys(text);
     }
 
     public void selectCountry(String text) {
-        scrollIfNeedAndApply(country);
+        LOGGER.info("Select country:" + text);
         country.selectByValue(text);
     }
 
     public void fillMessage(String text) {
-        scrollIfNeedAndApply(message);
-        sendText(message, text);
-
+        LOGGER.info("Fill message:" + text);
+        message.sendKeys(text);
     }
 
-    private void sendText(TypifiedElement element, String text) {
-        for (char symbol : text.toCharArray()) {
-            element.sendKeys(String.valueOf(symbol));
-            try {
-                Thread.sleep(200);
-            } catch (Exception e) {
-
-            }
-
-        }
+    //clicking on 'Send' button will cause captcha
+    public SuccessHelpRequestPage clickSend() {
+        send.click();
+        return new SuccessHelpRequestPage();
     }
 
-    public void clickSend() {
-        //        scrollIfNeedAndApply(firstName);
-        //        send.click();
-        new Actions(DriverManager.getInstance().getDriver()).moveToElement(send.getWrappedElement()).click().perform();
-    }
-
-    private void scrollIfNeedAndApply(TypifiedElement element) {
-        //TODO change to passing method
-        new ScrollTo(DriverManager.getInstance().getDriver()).execute(element.getWrappedElement());
+    public SuccessHelpRequestPage sendFormWithAutoCaptchaHandling() {
+        LOGGER.info("Send request form with js and posted captcha token.");
+        WebDriver driver = DriverManager.getInstance().getDriver();
+        //get captcha token
+        String token = new RucaptchaService("<user key>").generateToken(driver.getCurrentUrl());
+        // send captcha token
+        new SendCaptchaToken(driver, token).execute();
+        // post form with js as click with driver invokes captcha
+        new PostForm(driver).execute();
+        // wait for form submit
+        WaitUtil.waitFailSafeForNewPageLoad(driver);
+        return new SuccessHelpRequestPage();
     }
 }

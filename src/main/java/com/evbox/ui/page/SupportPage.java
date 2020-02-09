@@ -17,7 +17,7 @@ public class SupportPage extends AbstractPage {
 
     public Navigation navigation;
 
-    public SupportHeroHeader supportHeroHeader;
+    public SupportHeroHeader heroHeader;
 
     public RequestHelpForm requestHelpForm;
 
@@ -29,7 +29,7 @@ public class SupportPage extends AbstractPage {
     @Override
     public boolean isPageOpened() {
         if (isPageTitleCorrect(PAGE_TITLE)) {
-            return supportHeroHeader.isBrowseFaqsBtnDisplayed();
+            return heroHeader.isBrowseFaqsBtnDisplayed();
         }
         return false;
     }
