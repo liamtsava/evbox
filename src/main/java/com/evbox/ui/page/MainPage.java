@@ -6,6 +6,7 @@ import org.openqa.selenium.support.PageFactory;
 import com.evbox.driver.DriverManager;
 import com.evbox.ui.AbstractPage;
 import com.evbox.ui.block.AboutMenu;
+import com.evbox.ui.block.CookiesConfirmation;
 import com.evbox.ui.block.MainHeroHeader;
 import com.evbox.ui.block.Navigation;
 
@@ -20,6 +21,8 @@ public class MainPage extends AbstractPage {
 
     public Navigation navigation;
 
+    public CookiesConfirmation cookiesConfirmation;
+
     public MainPage(DriverManager driverManager) {
         super();
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
@@ -28,7 +31,7 @@ public class MainPage extends AbstractPage {
     @Override
     public boolean isPageOpened() {
         if (isPageTitleCorrect(PAGE_TITLE)) {
-            return heroHeader.primaryButton.exists();
+            return heroHeader.isExloreOurProductsBtnDisplayed();
         }
         return false;
     }

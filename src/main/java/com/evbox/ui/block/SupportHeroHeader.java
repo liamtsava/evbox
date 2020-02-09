@@ -9,21 +9,15 @@ import ru.yandex.qatools.htmlelements.annotations.Name;
 import ru.yandex.qatools.htmlelements.element.Button;
 
 @FindBy(xpath = "//header[contains(@class,'hero')]/div[contains(@id,'desktop')]")
-public class ContactUsHeroHeader extends HeroHeader {
+public class SupportHeroHeader extends HeroHeader {
 
-    private static final Logger LOGGER = new Logger(ContactUsHeroHeader.class);
+    private static final Logger LOGGER = new Logger(SupportHeroHeader.class);
 
-    @Name("'Request help' button")
-    @FindBy(xpath = ".//a[contains(@href,'learn/support')]")
+    @Name("'Browse FAQs' button")
+    @FindBy(xpath = ".//a[contains(@href,'learn') and contains(@class,'primary')]")
     private Button primaryButton;
 
-    public SupportPage clickRequestHelp() {
-        LOGGER.info("Click button: " + primaryButton.getName());
-        primaryButton.click();
-        return new SupportPage();
-    }
-
-    public boolean isRequestBtnDisplayed() {
+    public boolean isBrowseFaqsBtnDisplayed() {
         LOGGER.info("Verify if displayed:" + primaryButton.getName());
         return primaryButton.isDisplayed();
     }

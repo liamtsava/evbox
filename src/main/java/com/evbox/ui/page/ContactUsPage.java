@@ -27,7 +27,7 @@ public class ContactUsPage extends AbstractPage {
     @Override
     public boolean isPageOpened() {
         if (isPageTitleCorrect(PAGE_TITLE)) {
-//            return heroHeader.primaryButton.exists();
+            return heroHeader.isRequestBtnDisplayed();
         }
         return false;
     }
