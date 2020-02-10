@@ -20,5 +20,8 @@ target/
 # Allure
 allure-results/
 
-#Drivers
+# Drivers
 src/main/resources/driver/
+
+# Screenshots
+screenshots/
