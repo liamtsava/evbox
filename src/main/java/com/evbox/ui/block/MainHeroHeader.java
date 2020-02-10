@@ -16,7 +16,7 @@ public class MainHeroHeader extends HeroHeader {
     private Button primaryButton;
 
     public boolean isExloreOurProductsBtnDisplayed() {
-        LOGGER.info("Verify if displayed:" + primaryButton.getName());
+        LOGGER.info("Verify is displayed: " + primaryButton.getName());
         return primaryButton.isDisplayed();
     }
 }

@@ -4,6 +4,9 @@ import org.slf4j.LoggerFactory;
 
 import io.qameta.allure.Allure;
 
+/**
+ * Logger integrated with Allure report
+ */
 public class Logger {
 
     private org.slf4j.Logger logger;
@@ -19,5 +22,9 @@ public class Logger {
 
     public void debug(String message) {
         logger.debug(message);
+    }
+
+    public void error(String message, Throwable e) {
+        logger.error(message, e);
     }
 }

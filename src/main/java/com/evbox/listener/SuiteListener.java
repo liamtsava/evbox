@@ -3,7 +3,10 @@ package com.evbox.listener;
 import org.testng.ISuite;
 import org.testng.ISuiteListener;
 
+import com.evbox.constant.FrameworkConstant;
+import com.evbox.driver.DriverManager;
 import com.evbox.logger.Logger;
+import com.evbox.util.FileUtil;
 
 public class SuiteListener implements ISuiteListener {
 
@@ -11,14 +14,13 @@ public class SuiteListener implements ISuiteListener {
 
     public void onStart(ISuite suite) {
         LOGGER.debug("Start the suite.");
-        //TODO clean report folder
-
+        FileUtil.deleteFolder(FrameworkConstant.SCREENSHOTS_FOLDER);
+        FileUtil.deleteFolder(FrameworkConstant.ALLURE_RESULTS_FOLDER);
     }
 
     public void onFinish(ISuite suite) {
-        //TODO report
-
         LOGGER.debug("Finish the suite.");
+        DriverManager.quitAll();
     }
 
 }

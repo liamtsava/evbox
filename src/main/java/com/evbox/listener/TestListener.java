@@ -1,12 +1,19 @@
 package com.evbox.listener;
 
+import org.openqa.selenium.WebDriver;
+import org.testng.IInvokedMethod;
+import org.testng.IInvokedMethodListener;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+import com.evbox.constant.FrameworkConstant;
+import com.evbox.driver.DriverManager;
+import com.evbox.driver.util.ScreenshotUtil;
 import com.evbox.logger.Logger;
+import com.evbox.report.ReportAttachment;
 
-public class TestListener implements ITestListener {
+public class TestListener implements ITestListener, IInvokedMethodListener {
 
     private static final Logger LOGGER = new Logger(TestListener.class);
 
@@ -36,6 +43,19 @@ public class TestListener implements ITestListener {
 
     public void onFinish(ITestContext context) {
         // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
+        if (!testResult.isSuccess()) {
+            WebDriver driver = DriverManager.getInstance().getDriver();
+            ReportAttachment.attachScreenshot(ScreenshotUtil.takeScreenshot(driver, FrameworkConstant.SCREENSHOTS_FOLDER));
+        }
     }
 
 }
