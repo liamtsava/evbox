@@ -3,7 +3,6 @@ package com.evbox.ui.page;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 
-import com.evbox.driver.DriverManager;
 import com.evbox.ui.AbstractPage;
 import com.evbox.ui.block.AboutMenu;
 import com.evbox.ui.block.CookiesConfirmation;
@@ -23,7 +22,7 @@ public class MainPage extends AbstractPage {
 
     public CookiesConfirmation cookiesConfirmation;
 
-    public MainPage(DriverManager driverManager) {
+    public MainPage() {
         super();
         PageFactory.initElements(new HtmlElementDecorator(new HtmlElementLocatorFactory(driver)), this);
     }
@@ -36,10 +35,9 @@ public class MainPage extends AbstractPage {
         return false;
     }
 
-    public AboutMenu navigateToAboutMenu(){
+    public AboutMenu navigateToAboutMenu() {
         new Actions(driver).moveToElement(navigation.aboutMenu.getWrappedElement()).perform();
         return navigation.aboutMenu;
     }
-
 
 }

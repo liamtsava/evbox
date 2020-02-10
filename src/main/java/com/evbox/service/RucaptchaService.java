@@ -5,6 +5,7 @@ import java.util.function.Function;
 
 import org.openqa.selenium.support.ui.FluentWait;
 
+import com.evbox.constant.FrameworkConstant;
 import com.evbox.logger.Logger;
 import com.evbox.test.BaseTest;
 import com.evbox.util.HttpClientUtil;
@@ -13,7 +14,6 @@ public class RucaptchaService implements CaptchaService {
 
     private static final Logger LOGGER = new Logger(BaseTest.class);
 
-    private static final String GOOGLE_KEY = "6Lc2_RsUAAAAAAYBSd4rxsgeQz7whuL9COCsHeET";
     private static final String SEND_CAPTCHA_URL_PATTERN = "https://rucaptcha.com/in.php?key=%s&method=userrecaptcha&googlekey=%s"
             + "&pageurl=%s";
     private static final String GET_TOKEN_URL_PATTERN = "http://rucaptcha.com/res.php?key=%s&action=get&id=%s";
@@ -60,13 +60,12 @@ public class RucaptchaService implements CaptchaService {
         });
     }
 
-    private String extractResponsePayload(String response) {
-        //TODO groups
-        return response.substring(3);
+    private static String extractResponsePayload(String response) {
+        return response.replaceFirst("OK\\|", "");
     }
 
     private String generateSendCaptchaUrl(String apiKey, String pageUrl) {
-        return String.format(SEND_CAPTCHA_URL_PATTERN, apiKey, GOOGLE_KEY, pageUrl);
+        return String.format(SEND_CAPTCHA_URL_PATTERN, apiKey, FrameworkConstant.CAPTCHA_GOOGLE_KEY, pageUrl);
     }
 
     private String generateGetCaptchaTokenUrl(String apiKey, String captchaId) {

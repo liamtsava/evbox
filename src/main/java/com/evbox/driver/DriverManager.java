@@ -17,7 +17,6 @@ public class DriverManager {
 
     private final BrowserType browserType;
 
-    //TODO maybe get from threadlocal?
     private static List<WebDriver> createdDrivers = new ArrayList<>();
 
     private ThreadLocal<WebDriver> drivers = new ThreadLocal<>();

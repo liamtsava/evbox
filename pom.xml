@@ -8,18 +8,22 @@
     <artifactId>ui-test</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>ui-test</name>
-    <!-- FIXME change it to the project's website -->
-    <url>http://www.example.com</url>
+    <name>EVBox test assignment</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- TODO comment or remove exclusion -->
         <testng.version>6.14.3</testng.version>
         <selenium.version>3.141.59</selenium.version>
         <log4j.version>2.13.0</log4j.version>
         <allure.version>2.13.1</allure.version>
-
+        <aspectj.version>1.8.10</aspectj.version>
+        <slf4j.version>2.13.0</slf4j.version>
+        <allure.version>2.13.1</allure.version>
+        <htmlelements.version>1.20.0</htmlelements.version>
+        <commons.lang3.version>3.9</commons.lang3.version>
+        <httpclient.version>4.5.11</httpclient.version>
+        <httpcore.version>4.4.13</httpcore.version>
+        <commons.io.version>2.6</commons.io.version>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
@@ -37,8 +41,6 @@
         </profile>
     </profiles>
 
-    <!-- //TODO plugincs-->
-    <!-- TODO listeners -->
     <build>
         <plugins>
             <plugin>
@@ -49,7 +51,17 @@
                     <suiteXmlFiles>
                         <suiteXmlFile>src/main/resources/${testngFileName}.xml</suiteXmlFile>
                     </suiteXmlFiles>
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
                 </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.aspectj</groupId>
+                        <artifactId>aspectjweaver</artifactId>
+                        <version>${aspectj.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -87,12 +99,12 @@
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-slf4j-impl</artifactId>
-            <version>2.13.0</version>
+            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>2.13.1</version>
+            <version>${allure.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.testng</groupId>
@@ -103,24 +115,28 @@
         <dependency>
             <groupId>ru.yandex.qatools.htmlelements</groupId>
             <artifactId>htmlelements-java</artifactId>
-            <version>1.20.0</version>
+            <version>${htmlelements.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.9</version>
+            <version>${commons.lang3.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
-            <version>4.5.11</version>
+            <version>${httpclient.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpcore</artifactId>
-            <version>4.4.13</version>
+            <version>${httpcore.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons.io.version}</version>
         </dependency>
     </dependencies>
-
 
 </project>

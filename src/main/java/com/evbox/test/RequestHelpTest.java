@@ -21,8 +21,8 @@ public class RequestHelpTest extends BaseTest {
     public void requestHelpTest() {
         LOGGER.info("Open main page");
         driver.get(baseUrl);
-        MainPage mainPage = new MainPage(driverManager);
-        Assert.assertFalse(mainPage.isPageOpened(), "Main page wasn't opened.");
+        MainPage mainPage = new MainPage();
+        Assert.assertTrue(mainPage.isPageOpened(), "Main page wasn't opened.");
         mainPage.cookiesConfirmation.clickAcceptBtn();
         ContactUsPage contactUsPage = mainPage.navigateToAboutMenu().openContactUs();
         Assert.assertTrue(contactUsPage.isPageOpened(), "Contact us page wasn't opened.");

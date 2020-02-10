@@ -10,15 +10,12 @@ import com.evbox.logger.Logger;
 
 public class BaseTest {
 
-    //TODO multithreading
-
     private static final Logger LOGGER = new Logger(BaseTest.class);
+
+    protected static final String baseUrl = "https://evbox.com/";
 
     protected static DriverManager driverManager;
     protected WebDriver driver;
-
-    //TODO move to other place
-    protected final String baseUrl = "https://evbox.com/";
 
     @BeforeSuite(alwaysRun = true)
     public void beforeSuite() {
@@ -31,5 +28,3 @@ public class BaseTest {
     }
 
 }
-
-//TODO  README file

@@ -18,11 +18,11 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
     private static final Logger LOGGER = new Logger(TestListener.class);
 
     public void onTestStart(ITestResult result) {
-        LOGGER.debug("Starting test: " + result.getMethod().getMethodName());
+        LOGGER.debug("Starting test: " + getMethodName(result));
     }
 
     public void onTestSuccess(ITestResult result) {
-        LOGGER.debug("SUCCESS: " + result.getMethod().getMethodName());
+        LOGGER.debug("SUCCESS: " + getMethodName(result));
     }
 
     public void onTestFailure(ITestResult result) {
@@ -30,24 +30,24 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
     }
 
     public void onTestSkipped(ITestResult result) {
-        LOGGER.debug("SKIPPED: " + result.getMethod().getMethodName());
+        LOGGER.debug("SKIPPED: " + getMethodName(result));
     }
 
     public void onTestFailedButWithinSuccessPercentage(ITestResult result) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
     }
 
     public void onStart(ITestContext context) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
     }
 
     public void onFinish(ITestContext context) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
     }
 
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
-        // TODO Auto-generated method stub
+        // Auto-generated method stub
     }
 
     @Override
@@ -56,6 +56,10 @@ public class TestListener implements ITestListener, IInvokedMethodListener {
             WebDriver driver = DriverManager.getInstance().getDriver();
             ReportAttachment.attachScreenshot(ScreenshotUtil.takeScreenshot(driver, FrameworkConstant.SCREENSHOTS_FOLDER));
         }
+    }
+
+    private String getMethodName(ITestResult result) {
+        return result.getMethod().getMethodName();
     }
 
 }
