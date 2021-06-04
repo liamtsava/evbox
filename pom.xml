@@ -21,7 +21,7 @@
         <allure.version>2.13.1</allure.version>
         <htmlelements.version>1.20.0</htmlelements.version>
         <commons.lang3.version>3.9</commons.lang3.version>
-        <httpclient.version>4.5.11</httpclient.version>
+        <httpclient.version>4.5.13</httpclient.version>
         <httpcore.version>4.4.13</httpcore.version>
         <commons.io.version>2.6</commons.io.version>
         <maven.compiler.source>1.8</maven.compiler.source>
